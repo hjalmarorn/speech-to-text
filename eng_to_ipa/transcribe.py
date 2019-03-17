@@ -5,7 +5,7 @@ import eng_to_ipa.stress as stress
 import sqlite3
 from collections import defaultdict
 
-conn = sqlite3.connect(join(abspath(dirname(__file__)), "./resources/CMU_dict.db"))
+conn = sqlite3.connect(join(abspath(dirname(__file__)), "./resources/CMU_dict.db"), check_same_thread=False)
 c = conn.cursor()
 
 
