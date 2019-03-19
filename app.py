@@ -24,6 +24,11 @@ def rec():
 	text = ipa.convert(speech)
 	return text
 
+@app.route('/newWord', methods=["GET"])
+def get_new_word():
+	text = rec()
+	return text
+
 
 @app.route('/', methods=["GET", "POST"])
 def index():

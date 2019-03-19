@@ -1,18 +1,77 @@
 <!DOCTYPE html>
 <head>
+	<script 
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+</script>
 	<style>
+
 	@font-face {
 		font-family:'testFont';
-		src: url('../doulos.ttf') format('truetype');
+		src: {{ url_for('static', filename='CENTRALESANSCND-BOLD.otf') }};
 	}
 	p {
 		font-family: testFont;
+		font-size:50px;
 	}
+
+	.main {
+		margin-top:300px;
+		margin-left:500px;
+	}
+
+	button {
+		height:50px;
+		width: 70px;
+		font-size:20px;
+	}
+
+	.loader {
+	display:none;
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 </style>
 </head>
-<body>
-<p>{{text}}</p>
-<form method="POST" action="/">
-	<button type="submit">talk</button>
-	</form>
+<body>	
+	<div class="main">
+		<div class="loader"></div>
+<p class="word" ></p>
+	<button >talk</button>
+</div>
+
+<script>
+
+	$(function() {
+    $('button').click(function() {
+    	$('button').hide();
+    	$('.loader').show();
+        $.ajax({
+            url: '/newWord',
+            type: 'GET',
+            success: function(response) {
+                console.log(response);
+                $('.loader').hide()
+                $('.word').text(response);
+                $('button').show();
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+});
+ 
+
+</script>
+
+
 </body>
