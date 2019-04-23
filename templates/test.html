@@ -4,14 +4,34 @@
 src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
 </script>
 <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='style.css')}}"/> 
+<style>
+	p span {
+    border-right: .10em solid black;
+    line-height: 10px;
+    padding-left:10px;
+    animation:
+
+      blink-caret 1s step-end infinite;
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: black	; }
+}
+</style>
 </head>
 <body>
 	<div class="main">
-		<div class="background" id="wordlist">
-			{{word_list}}
-		</div>
-		<p class="word" >Talaðu</p>
+		<p class="word" ><span></span></p>
 	</div>
+		<span class="background" >
+			→ 
+			<span id="wordlist">
+				{% for word in word_list %}
+					{{word}} &nbsp;&nbsp;&nbsp;
+				{% endfor %}
+			</span>
+		</span>
 
 <script>
 	
@@ -23,7 +43,8 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
                 console.log(response);
                 if(response != '?' && response.length > 0) {
                 	$('.word').text("[" + response + "]");
-                	$('#wordlist').prepend(response + " ")
+                	$('#wordlist').prepend("[" + response + "]&nbsp;&nbsp;&nbsp;")
+                	$('.word').append('<span></span>')
                 }
             },
             error: function(error) {

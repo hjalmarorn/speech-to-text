@@ -52,10 +52,15 @@ def get_all_words():
 	conn = sqlite3.connect('words.db', check_same_thread=False)
 	cur = conn.cursor()
 	rows = cur.execute(''' SELECT * FROM words''')
-	word_list = ""
-	for row in rows:
-		word_list += row[0] + " "
+	word_list = ["[" + item[0] + "]" for item in rows]
+	print(word_list)
 	return word_list
+
+def clear_db():
+	conn = sqlite3.connect('words.db', check_same_thread=False)
+	cur = conn.cursor()
+	cur.execute('''DROP TABLE IF EXISTS words''')
+	conn.close()
 
 @app.route('/', methods=["GET", "POST"])
 def index():
