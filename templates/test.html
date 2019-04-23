@@ -7,14 +7,33 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
 </head>
 <body>
 	<div class="main">
-		<div class="loader"></div>
-<p class="word" ></p>
-<p  >hello</p>
-	<button >talk</button>
-</div>
+		<div class="background" id="wordlist">
+			{{word_list}}
+		</div>
+		<p class="word" >Talaðu</p>
+	</div>
 
 <script>
+	
+	function poll() {
+		$.ajax({
+            url: '/newWord',
+            type: 'GET',
+            success: function(response) {
+                console.log(response);
+                if(response != '?' && response.length > 0) {
+                	$('.word').text("[" + response + "]");
+                	$('#wordlist').prepend(response + " ")
+                }
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+	};
 
+	setInterval(poll, 5000);
+/*
 	$(function() {
     $('button').click(function() {
     	$('button').hide();
@@ -35,7 +54,7 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
     });
 });
 
-
+*/
 </script>
 
 

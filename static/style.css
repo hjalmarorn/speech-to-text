@@ -1,34 +1,42 @@
+
 @font-face {
   font-family:'testFont';
   src: url('KolbGrotesk-Regular.otf') format("opentype");
 }
-p {
+
+#wordlist {
   font-family: testFont;
   font-size:50px;
 }
 
 .main {
-  margin-top:300px;
-  margin-left:500px;
+  
+  }
+
+.main p {
+    margin: 0;
+    background: black;
+    color:white;
+    top: 50%;
+    left:50%;
+    margin-right:-50%;
+    padding-left:10px;
+    padding-right:10px;
+    margin-top:20%;
+    transform: translate(-50%, -50%);
+    
+    font-family: testFont;
+    font-size:100px;
+  }
+.background {
+  
+   top: 0;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   z-index: -1;
+ height:10000px;
 }
 
-button {
-  height:50px;
-  width: 70px;
-  font-size:20px;
-}
 
-.loader {
-display:none;
-border: 16px solid #f3f3f3; /* Light grey */
-border-top: 16px solid #3498db; /* Blue */
-border-radius: 50%;
-width: 60px;
-height: 60px;
-animation: spin 2s linear infinite;
-}
 
-@keyframes spin {
-0% { transform: rotate(0deg); }
-100% { transform: rotate(360deg); }
-}
