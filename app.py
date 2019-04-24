@@ -43,10 +43,9 @@ def rec():
 def get_new_word():
 	global word
 	newWord = word
-	word = ""
+	word = "?"
 	print(newWord)
 	return newWord
-
 
 def get_all_words():
 	conn = sqlite3.connect('words.db', check_same_thread=False)
@@ -77,3 +76,4 @@ def init():
 	conn.close()
 
 init()
+#clear_db()
