@@ -19,10 +19,11 @@ def rec():
 		try:
 			conn = sqlite3.connect('words.db', check_same_thread=False)
 			r = sr.Recognizer()
-			mic = sr.Microphone()
+			r.energy_threshold = 3000
+			mic = sr.Microphone(device_index=0)
 			with mic as source:
 				print("listening...")
-				#r.adjust_for_ambient_noise(source)
+				r.adjust_for_ambient_noise(source)
 				audio = r.listen(source)
 
 			speech = r.recognize_google(audio)
