@@ -24,14 +24,19 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
 	<div class="main">
 		<p class="word" ><span></span></p>
 	</div>
-		<span class="background" >
-			→ 
-			<span id="wordlist">
+		<div class="background" >
+			→
+			<div id="wordlist">
 				{% for word in word_list %}
-					{{word}} &nbsp;&nbsp;&nbsp;
+					{% if "*" in word %}
+					<span style="white-space:nowrap;color:red">
+					{{word[1:(word|length)-2]}}&emsp;</span>
+					{% else %}
+					<span style="white-space:nowrap">{{word}}&emsp;</span>
+					{% endif %}	
 				{% endfor %}
-			</span>
-		</span>
+			</div>
+		</div>
 
 <script>
 	
@@ -42,8 +47,15 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
             success: function(response) {
                 console.log(response);
                 if(response != '?' && response.length > 0) {
-                	$('.word').text("[" + response + "]");
-                	$('#wordlist').prepend("[" + response + "]&nbsp;&nbsp;&nbsp;")
+                	
+                	if(response.indexOf('*') > -1) {
+                		$('.word').text("[" + response.substring(0, response.length - 1) + "]");
+                		$('#wordlist').prepend("<span style='white-space:nowrap;color:red'>" + response.substring(0, response.length - 1) + "&emsp;</span>")
+                	}
+                	else {
+                		$('.word').text("[" + response +  "]");
+                		$('#wordlist').prepend("<span style='white-space:nowrap;''>[" + response + "]&emsp;</span>")
+                	}
                 	$('.word').append('<span></span>')
                 }
             },

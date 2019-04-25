@@ -31,7 +31,7 @@ def rec():
 			text = ipa.convert(speech)
 			if(text != word):
 				word = text
-				conn.execute("INSERT INTO words VALUES(?,?)", (text, speech))
+				conn.execute("INSERT INTO words (word, ipa) VALUES(?,?)", (text, speech))
 				conn.commit()
 				conn.close()
 			else:
@@ -51,7 +51,7 @@ def get_new_word():
 def get_all_words():
 	conn = sqlite3.connect('words.db', check_same_thread=False)
 	cur = conn.cursor()
-	rows = cur.execute(''' SELECT * FROM words''')
+	rows = cur.execute(''' SELECT word, ipa FROM words ORDER BY id DESC''')
 	word_list = ["[" + item[0] + "]" for item in rows]
 	print(word_list)
 	return word_list
@@ -72,8 +72,7 @@ def init():
 	word_thread.daemon = True
 	word_thread.start()
 	conn = sqlite3.connect('words.db', check_same_thread=False)
-	conn.execute('''CREATE TABLE IF NOT EXISTS words (word string, ipa string)''')
-	conn.execute(''' SELECT * FROM words''')
+	conn.execute('''CREATE TABLE IF NOT EXISTS words (id integer primary key, word string, ipa string)''')
 	conn.close()
 
 init()
