@@ -18,6 +18,12 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
   from, to { border-color: transparent }
   50% { border-color: black	; }
 }
+
+.background {
+	width:90%;
+	margin-left:5%;
+	margin-right:5%;
+}
 </style>
 </head>
 <body>
@@ -32,7 +38,7 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
 					<span style="white-space:nowrap;color:red">
 					{{word[1:(word|length)-2]}}&emsp;</span>
 					{% else %}
-					<span style="white-space:nowrap">{{word}}&emsp;</span>
+					<span style="white-space:nowrap;">{{word}}&emsp;</span>
 					{% endif %}	
 				{% endfor %}
 			</div>
@@ -50,11 +56,11 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
                 	
                 	if(response.indexOf('*') > -1) {
                 		$('.word').text("[" + response.substring(0, response.length - 1) + "]");
-                		$('#wordlist').prepend("<span style='white-space:nowrap;color:red'>" + response.substring(0, response.length - 1) + "&emsp;</span>")
+                		$('#wordlist').prepend("<span style='white-space:nowrap;color:red'>" + response.substring(0, response.length - 1) + "&emsp;</span>\n")
                 	}
                 	else {
                 		$('.word').text("[" + response +  "]");
-                		$('#wordlist').prepend("<span style='white-space:nowrap;''>[" + response + "]&emsp;</span>")
+                		$('#wordlist').prepend("<span style='white-space:nowrap;''>[" + response + "]&emsp;</span>\n")
                 	}
                 	$('.word').append('<span></span>')
                 }
