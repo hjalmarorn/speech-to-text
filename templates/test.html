@@ -31,12 +31,11 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
 		<p class="word" ><span></span></p>
 	</div>
 		<div class="background" >
-			→
 			<div id="wordlist">
 				{% for word in word_list %}
 					{% if "*" in word %}
 					<span style="white-space:nowrap;color:red">
-					{{word[1:(word|length)-2]}}&emsp;</span>
+					{{word.replace('*','')[1:(word|length)-2]}}&emsp;</span>
 					{% else %}
 					<span style="white-space:nowrap;">{{word}}&emsp;</span>
 					{% endif %}	
@@ -55,8 +54,9 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
                 if(response != '?' && response.length > 0) {
                 	
                 	if(response.indexOf('*') > -1) {
-                		$('.word').text("[" + response.substring(0, response.length - 1) + "]");
-                		$('#wordlist').prepend("<span style='white-space:nowrap;color:red'>" + response.substring(0, response.length - 1) + "&emsp;</span>\n")
+                		response = response.split('*').join('')
+                		$('.word').text("[" + response + "]");
+                		$('#wordlist').prepend("<span style='white-space:nowrap;color:red'>" + response + "&emsp;</span>\n")
                 	}
                 	else {
                 		$('.word').text("[" + response +  "]");
@@ -71,7 +71,7 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
         });
 	};
 
-	setInterval(poll, 5000);
+	setInterval(poll, 1000);
 /*
 	$(function() {
     $('button').click(function() {
