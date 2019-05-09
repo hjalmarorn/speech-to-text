@@ -50,16 +50,23 @@ def index():
 	word_list = get_all_words()
 	return render_template("test.html", word_list=word_list)
 
+def init():
+	r = sr.Recognizer()
 
-r = sr.Recognizer()
-
-m = sr.Microphone()
+	m = sr.Microphone()
 
 
-with m as source:
-	r.adjust_for_ambient_noise(source)
+	with m as source:
+		r.adjust_for_ambient_noise(source)
 
-r.dynamic_energy_threshold = False
-r.energy_threshold = 500
-stop_listening = r.listen_in_background(m, rec)
+	r.dynamic_energy_threshold = False
+	r.energy_threshold = 500
+	stop_listening = r.listen_in_background(m, rec)
+	conn = sqlite3.connect('words.db', check_same_thread=False)
+	conn.execute('''CREATE TABLE IF NOT EXISTS words (id integer primary key, word string, ipa string)''')
+	conn.close()
+
+
+init()
+
 
