@@ -53,7 +53,7 @@ def index():
 def init():
 	r = sr.Recognizer()
 
-	m = sr.Microphone()
+	m = sr.Microphone(device_index=0)
 
 
 	with m as source:
